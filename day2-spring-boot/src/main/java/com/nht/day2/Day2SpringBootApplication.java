@@ -19,8 +19,6 @@ public class Day2SpringBootApplication {
         SpringApplication.run(Day2SpringBootApplication.class, args);
     }
 
-
-
     @Bean @Order(1)
     CommandLineRunner demoLooseCoupling() {
         return args -> {
