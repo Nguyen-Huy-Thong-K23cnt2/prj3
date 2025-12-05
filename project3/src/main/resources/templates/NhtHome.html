@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nht Teddy Shop - Trang chủ</title>
+    <link rel="stylesheet" th:href="@{/css/nht-style.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<th:block th:replace="layout/NhtHeader :: nht_header"></th:block>
+
+<!-- BANNER QUẢNG CÁO -->
+<section class="nht-banner">
+    Banner, Quảng cáo
+</section>
+
+<!-- THANH TRANG CHỦ – GẤU TEDDY – THÚ BÔNG – -->
+<section class="nht-category-bar">
+    <div class="nht-category-list">
+        <a th:href="@{/}" class="nht-category-link nht-category-active">
+            Trang chủ
+        </a>
+
+        <!-- lặp category từ DB -->
+        <a class="nht-category-link"
+           th:each="c : ${categories}"
+           th:href="@{'/category/' + ${c.id}}"
+           th:text="${c.categoryName}">
+        </a>
+    </div>
+</section>
+
+<!-- 3 BOX LỚN: Tặng bạn gái – Big size – Gấu bông in tên -->
+<section class="nht-feature-boxes">
+    <div class="nht-feature-card">Tặng bạn gái</div>
+    <div class="nht-feature-card">Big size</div>
+    <div class="nht-feature-card">Gấu bông in tên</div>
+</section>
+
+<!-- SẢN PHẨM NỔI BẬT -->
+<section class="nht-section">
+    <h3 class="nht-section-title">Sản phẩm nổi bật</h3>
+
+    <div class="nht-product-grid">
+        <div class="nht-product-card" th:each="p : ${products}">
+            <a th:href="@{'/product/' + ${p.id}}">
+                <img th:src="${p.productImage}" alt="" class="nht-product-img">
+                <h4 th:text="${p.productName}"></h4>
+                <p class="price"
+                   th:text="${#numbers.formatInteger(p.productPrice, 0, 'POINT')} + ' đ'">
+                </p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="nht-footer">
+    © 2025 - Nht Teddy Shop
+</footer>
+
+</body>
+</html>

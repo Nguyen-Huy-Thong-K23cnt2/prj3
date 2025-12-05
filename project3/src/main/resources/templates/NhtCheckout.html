@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" th:href="@{/css/nht-style.css}">
+</head>
+<body>
+
+<th:block th:replace="layout/NhtHeader :: nht_header"></th:block>
+
+<section class="nht-section">
+    <h2 class="nht-section-title">Thanh toán</h2>
+
+    <div class="nht-checkout-layout">
+
+        <!-- TÓM TẮT GIỎ HÀNG -->
+        <div class="nht-checkout-cart">
+            <h3>Đơn hàng của bạn</h3>
+
+            <div class="nht-checkout-items">
+                <div class="nht-checkout-item" th:each="item : ${items}">
+                    <div>
+                        <strong th:text="${item.productName}"></strong>
+                        <div class="nht-checkout-sub">
+                            SL: <span th:text="${item.quantity}"></span> ×
+                            <span th:text="${#numbers.formatInteger(item.price, 0, 'POINT')} + ' đ'"></span>
+                        </div>
+                    </div>
+                    <div class="nht-checkout-line-total"
+                         th:text="${#numbers.formatInteger(item.price * item.quantity, 0, 'POINT')} + ' đ'">
+                    </div>
+                </div>
+            </div>
+
+            <div class="nht-cart-total">
+                Tổng thanh toán:
+                <span th:text="${#numbers.formatInteger(total, 0, 'POINT')} + ' đ'"></span>
+            </div>
+        </div>
+
+        <!-- FORM THÔNG TIN KHÁCH HÀNG -->
+        <div class="nht-checkout-form-wrap">
+            <h3>Thông tin nhận hàng</h3>
+
+            <form th:action="@{/checkout}" method="post" class="nht-checkout-form">
+                <label>Họ tên người nhận *</label>
+                <input type="text" name="customerName" required>
+
+                <label>Số điện thoại *</label>
+                <input type="text" name="customerPhone" required>
+
+                <label>Địa chỉ nhận hàng *</label>
+                <textarea name="customerAddress" required rows="3"></textarea>
+
+                <label>Ghi chú</label>
+                <textarea name="note" rows="2"></textarea>
+
+                <button type="submit" class="btn-primary">Đặt hàng</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <link rel="stylesheet" th:href="@{/css/nht-style.css}">
+</head>
+<body>
+
+<header class="nht-header" th:fragment="nht_header">
+
+    <div class="nht-header-top">
+
+
+        <a th:href="@{/}" class="nht-logo">
+            LOGO
+        </a>
+
+        <div class="nht-header-center">
+            <form class="nht-search-bar">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="submit">Tìm</button>
+            </form>
+        </div>
+
+        <!-- Khối phải: hotline + giỏ hàng + đăng nhập -->
+        <div class="nht-header-right">
+            <div class="nht-hotline">
+                Hotline: <span>0927 162 3671</span>
+            </div>
+
+            <div class="nht-header-actions">
+                <!-- Giỏ hàng: logo giỏ, bấm sang trang  -->
+                <a th:href="@{/cart}" class="nht-cart-icon" title="Giỏ hàng">
+                    🛒
+                </a>
+
+                <!-- Đăng nhập / Đăng ký -->
+                <a th:href="@{/login}" class="nht-auth-btn">
+                    Đăng nhập / Đăng ký
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hàng dưới: thanh danh mục + khẩu hiệu + menu -->
+    <nav class="nht-main-menu">
+        <div class="nht-main-left">
+            <a th:href="@{/}" class="nht-menu-item">
+                Trang chủ
+            </a>
+        </div>
+
+        <div class="nht-main-center">
+            <span class="nht-tagline">
+                Quà tặng gấu bông cho người bạn thương
+            </span>
+        </div>
+
+        <div class="nht-main-right">
+            <a href="#" class="nht-menu-item">Khuyến mại</a>
+            <a href="#" class="nht-menu-item">Dịch vụ</a>
+            <a href="#" class="nht-menu-item">Liên hệ</a>
+            <a class="nht-menu-item" th:href="@{/order/track}">
+                Theo dõi đơn
+            </a>
+
+        </div>
+    </nav>
+
+
+</header>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.productName}">Chi tiết sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/nht-style.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<th:block th:replace="layout/NhtHeader :: nht_header"></th:block>
+
+<!-- BANNER -->
+<section class="nht-banner">
+    Banner, Quảng cáo
+</section>
+
+<!-- BREADCRUMB -->
+<div class="nht-breadcrumb">
+    <a th:href="@{/}">Trang chủ</a>
+    <span>/</span>
+    <span th:text="${product.productName}">Sản phẩm</span>
+</div>
+
+<!-- KHUNG CHI TIẾT SẢN PHẨM -->
+<section class="nht-detail-wrap">
+    <div class="nht-product-detail-card">
+
+        <!-- ẢNH BÊN TRÁI -->
+        <div class="nht-detail-img-wrap">
+            <img class="detail-img" th:src="${product.productImage}" alt="" />
+        </div>
+
+        <!-- THÔNG TIN BÊN PHẢI -->
+        <div class="detail-info">
+        <h2 th:text="${product.productName}"></h2>
+
+        <p class="price"
+           th:text="${#numbers.formatInteger(product.productPrice, 0, 'POINT')} + ' đ'">
+        </p>
+
+        <!-- mô tả ngắn từ DB -->
+        <p class="nht-detail-desc"
+           th:text="${product.productDescription}">
+            Mô tả sản phẩm...
+        </p>
+
+        <!-- DANH SÁCH CAM KẾT -->
+        <div class="nht-benefit-wrap">
+            <ul class="nht-benefit-list">
+                <li>100% bông trắng tinh khiết</li>
+                <li>Bảo hành đường chỉ trọn đời</li>
+                <li>Miễn phí Gói quà</li>
+                <li>Miễn phí Nén chân không gấu</li>
+            </ul>
+            <ul class="nht-benefit-list">
+                <li>100% ảnh chụp tại shop</li>
+                <li>Bảo hành Bông gấu 6 tháng</li>
+                <li>Miễn phí Tặng thiệp</li>
+            </ul>
+        </div>
+            <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
+                <button type="submit" class="btn-primary">
+                    Thêm vào giỏ hàng
+                </button>
+            </form>
+    </div>
+
+    </div>
+</section>
+<!-- THÔNG TIN SẢN PHẨM & ĐÁNH GIÁ -->
+<section class="nht-detail-extra">
+    <div class="nht-product-extra">
+        <h3>Thông tin sản phẩm</h3>
+        <p>
+            Chất liệu bông mềm mịn, an toàn cho da, phù hợp làm quà tặng sinh nhật,
+            kỷ niệm, trang trí phòng ngủ, góc làm việc...
+        </p>
+        <p th:text="${product.productDescription}"></p>
+    </div>
+
+    <div class="nht-review-section">
+        <h3>Đánh giá của khách hàng</h3>
+
+        <div class="nht-review-card">
+            <div class="nht-review-header">
+                <span class="nht-review-name">Ngọc Anh</span>
+                <span class="nht-review-stars">★★★★★</span>
+            </div>
+            <p>Gấu rất mềm, ôm thích lắm, shop gói quà đẹp, giao hàng nhanh.</p>
+        </div>
+
+        <div class="nht-review-card">
+            <div class="nht-review-header">
+                <span class="nht-review-name">Hoàng Minh</span>
+                <span class="nht-review-stars">★★★★☆</span>
+            </div>
+            <p>Màu ngoài đời xinh hơn trên ảnh, bé nhà mình cực kỳ thích.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<footer class="nht-footer">
+    © 2025 - Nht Teddy Shop
+</footer>
+
+</body>
+</html>

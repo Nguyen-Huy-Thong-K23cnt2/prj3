@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Danh mục: ' + ${currentCategory.categoryName}">Danh mục</title>
+    <link rel="stylesheet" th:href="@{/css/nht-style.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<th:block th:replace="layout/NhtHeader :: nht_header"></th:block>
+
+<!-- BANNER -->
+<section class="nht-banner">
+    Banner, Quảng cáo
+</section>
+
+<!-- THANH CATEGORY DƯỚI BANNER (Trang chủ + các nhóm như trang chủ) -->
+<section class="nht-category-bar">
+    <div class="nht-category-list">
+
+        <!-- Trang chủ -->
+        <a th:href="@{/}"
+           th:class="'nht-category-link' + (${activeCategoryId} == 0 ? ' nht-category-active' : '')">
+            Trang chủ
+        </a>
+
+        <!-- Các category từ DB -->
+        <a th:each="c : ${categories}"
+           th:href="@{'/category/' + ${c.id}}"
+           th:text="${c.categoryName}"
+           th:class="'nht-category-link' + (${activeCategoryId} == c.id ? ' nht-category-active' : '')">
+        </a>
+    </div>
+</section>
+
+<!-- BREADCRUMB nhỏ: Trang chủ / Tên danh mục -->
+<div class="nht-breadcrumb">
+    <a th:href="@{/}">Trang chủ</a>
+    <span>/</span>
+    <span th:text="${currentCategory.categoryName}">Danh mục</span>
+</div>
+
+<!-- TIÊU ĐỀ DANH MỤC -->
+<section class="nht-section">
+    <h2 th:text="'Danh mục: ' + ${currentCategory.categoryName}"></h2>
+</section>
+
+<!-- LIST SẢN PHẨM TRONG DANH MỤC -->
+<section class="nht-section">
+    <div class="nht-product-grid">
+        <div class="nht-product-card" th:each="p : ${products}">
+            <a th:href="@{'/product/' + ${p.id}}">
+                <img th:src="${p.productImage}" alt="" class="nht-product-img">
+                <h4 th:text="${p.productName}"></h4>
+                <p class="price"
+                   th:text="${#numbers.formatInteger(p.productPrice, 0, 'POINT')} + ' đ'">
+                </p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="nht-footer">
+    © 2025 - Nht Teddy Shop
+</footer>
+
+</body>
+</html>
