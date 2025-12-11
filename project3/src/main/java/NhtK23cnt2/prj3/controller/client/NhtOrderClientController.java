@@ -1,40 +1,32 @@
 package NhtK23cnt2.prj3.controller.client;
 
 import NhtK23cnt2.prj3.entity.order.NhtOrder;
-import NhtK23cnt2.prj3.repository.order.NhtOrderRepository;
+import NhtK23cnt2.prj3.service.order.NhtOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/order")
 public class NhtOrderClientController {
 
-    private final NhtOrderRepository orderRepository;
+    private final NhtOrderService orderService;
 
-    @GetMapping("/order/{id}")
-    public String orderDetail(@PathVariable Long id, Model model) {
-        NhtOrder order = orderRepository.findById(id).orElse(null);
+    // =============================================================
+    //  TRANG THÔNG BÁO ĐẶT HÀNG THÀNH CÔNG
+    // =============================================================
+    @GetMapping("/success")
+    public String orderSuccess(@RequestParam("id") Long id, Model model) {
+
+        NhtOrder order = orderService.getById(id);
+
         if (order == null) {
-            return "redirect:/";
+            return "redirect:/";  // không có đơn thì về Home
         }
+
         model.addAttribute("order", order);
-        return "NhtOrderDetail";
-    }
-
-    @GetMapping("/order/track")
-    public String trackForm() {
-        return "NhtOrderTrack";
-    }
-
-    @GetMapping("/order/search")
-    public String searchByPhone(@RequestParam("phone") String phone, Model model) {
-        List<NhtOrder> orders = orderRepository.findByCustomerPhoneOrderByCreatedAtDesc(phone);
-        model.addAttribute("orders", orders);
-        model.addAttribute("phone", phone);
-        return "NhtOrderTrack";
+        return "order/NhtOrderSuccess";
     }
 }

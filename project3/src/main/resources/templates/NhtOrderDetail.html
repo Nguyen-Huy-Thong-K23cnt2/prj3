@@ -18,7 +18,7 @@
 <section class="nht-section">
     <h2 class="nht-section-title" th:text="'Đơn hàng #' + ${order.id}"></h2>
 
-    <!-- TRẠNG THÁI ĐƠN HÀNG -->
+    <!-- TRẠNG THÁI -->
     <div class="nht-order-status">
         <span>Trạng thái: </span>
         <span class="nht-order-status-badge"
@@ -34,10 +34,22 @@
     <!-- THÔNG TIN KHÁCH HÀNG -->
     <div class="nht-order-info">
         <h3>Thông tin khách hàng</h3>
-        <p><strong>Họ tên:</strong> <span th:text="${order.customerName}"></span></p>
-        <p><strong>Số điện thoại:</strong> <span th:text="${order.customerPhone}"></span></p>
-        <p><strong>Địa chỉ:</strong> <span th:text="${order.customerAddress}"></span></p>
-        <p><strong>Ghi chú:</strong> <span th:text="${order.note} ?: '—'"></span></p>
+
+        <p><strong>Họ tên:</strong>
+            <span th:text="${order.customerName}"></span>
+        </p>
+
+        <p><strong>Số điện thoại:</strong>
+            <span th:text="${order.phone}"></span>
+        </p>
+
+        <p><strong>Địa chỉ:</strong>
+            <span th:text="${order.address}"></span>
+        </p>
+
+        <p><strong>Ghi chú:</strong>
+            <span th:text="${order.note} ?: '—'"></span>
+        </p>
     </div>
 
     <!-- DANH SÁCH SẢN PHẨM -->
@@ -53,11 +65,19 @@
                 <th>Thành tiền</th>
             </tr>
             </thead>
+
             <tbody>
             <tr th:each="item : ${order.items}">
+                <!-- Tên -->
                 <td th:text="${item.productName}"></td>
+
+                <!-- Giá -->
                 <td th:text="${#numbers.formatInteger(item.productPrice, 0, 'POINT')} + ' đ'"></td>
+
+                <!-- Số lượng -->
                 <td th:text="${item.quantity}"></td>
+
+                <!-- Thành tiền -->
                 <td th:text="${#numbers.formatInteger(item.productPrice * item.quantity, 0, 'POINT')} + ' đ'"></td>
             </tr>
             </tbody>
@@ -70,6 +90,7 @@
     </div>
 
 </section>
+<th:block th:replace="layout/NhtFooter :: nht_footer"></th:block>
 
 </body>
 </html>

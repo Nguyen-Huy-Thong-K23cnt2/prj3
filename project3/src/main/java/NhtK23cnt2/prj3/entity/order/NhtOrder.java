@@ -1,38 +1,51 @@
 package NhtK23cnt2.prj3.entity.order;
 
+import NhtK23cnt2.prj3.entity.user.NhtUser;
 import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 public class NhtOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String customerName;
-    String customerPhone;
-    String customerAddress;
-    String note;
+    @Column(nullable = false, length = 150)
+    private String customerName;
 
-    Double totalAmount;
+    @Column(nullable = false, length = 20)
+    private String phone;
 
-    // WAITING, CONFIRMED, PREPARING, SHIPPING
-    String status;
+    @Column(nullable = false, length = 255)
+    private String address;
 
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
+    @Column(length = 500)
+    private String note;
+
+    @Column(nullable = false)
+    private Double totalAmount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private NhtOrderStatus status;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private NhtUser user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<NhtOrderItem> items;
+    private List<NhtOrderItem> items;
+
+
 }

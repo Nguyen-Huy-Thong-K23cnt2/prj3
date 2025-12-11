@@ -1,18 +1,21 @@
 package NhtK23cnt2.prj3.controller.client;
 
 import NhtK23cnt2.prj3.entity.order.NhtOrder;
-import NhtK23cnt2.prj3.entity.order.NhtOrderItem;
+import NhtK23cnt2.prj3.entity.user.NhtUser;
 import NhtK23cnt2.prj3.model.cart.NhtCartItem;
-import NhtK23cnt2.prj3.repository.order.NhtOrderRepository;
-import NhtK23cnt2.prj3.service.NhtProductService;
+import NhtK23cnt2.prj3.order.NhtCheckoutForm;
 import NhtK23cnt2.prj3.service.cart.NhtCartService;
+import NhtK23cnt2.prj3.service.order.NhtOrderService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -20,62 +23,67 @@ import java.util.List;
 public class NhtCheckoutClientController {
 
     private final NhtCartService cartService;
-    private final NhtOrderRepository orderRepository;
-    private final NhtProductService productService;
+    private final NhtOrderService orderService;
 
+    // ============= GET CHECKOUT =============
     @GetMapping("/checkout")
-    public String checkoutPage(Model model, HttpSession session) {
+    public String showCheckoutPage(Model model, HttpSession session) {
+
+        // ⭐ 1. Kiểm tra đăng nhập
+        NhtUser user = (NhtUser) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login?redirect=/checkout";
+        }
+
+        // ⭐ 2. Kiểm tra giỏ hàng
         List<NhtCartItem> items = cartService.getItems(session);
-        if (items.isEmpty()) {
+        if (items == null || items.isEmpty()) {
             return "redirect:/cart";
         }
+
+        // ⭐ 3. Khởi tạo form nếu chưa có
+        if (!model.containsAttribute("checkoutForm")) {
+            model.addAttribute("checkoutForm", new NhtCheckoutForm());
+        }
+
         model.addAttribute("items", items);
         model.addAttribute("total", cartService.getTotal(session));
-        return "NhtCheckout";
+
+        return "order/NhtCheckout";
     }
 
+    // ============= POST CHECKOUT =============
     @PostMapping("/checkout")
-    public String submitOrder(
-            @RequestParam String customerName,
-            @RequestParam String customerPhone,
-            @RequestParam String customerAddress,
-            @RequestParam(required = false) String note,
-            HttpSession session) {
+    public String handleCheckout(@Valid @ModelAttribute("checkoutForm") NhtCheckoutForm form,
+                                 BindingResult bindingResult,
+                                 HttpSession session,
+                                 Model model) {
 
+        // ⭐ 1. Chưa login → bắt buộc login
+        NhtUser user = (NhtUser) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login?redirect=/checkout";
+        }
+
+        // ⭐ 2. Lấy giỏ hàng
         List<NhtCartItem> items = cartService.getItems(session);
-        if (items.isEmpty()) {
+        if (items == null || items.isEmpty()) {
             return "redirect:/cart";
         }
 
-        double total = cartService.getTotal(session);
+        // ⭐ 3. Validate lỗi
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("items", items);
+            model.addAttribute("total", cartService.getTotal(session));
+            return "order/NhtCheckout";
+        }
 
-        NhtOrder order = new NhtOrder();
-        order.setCustomerName(customerName);
-        order.setCustomerPhone(customerPhone);
-        order.setCustomerAddress(customerAddress);
-        order.setNote(note);
-        order.setTotalAmount(total);
-        order.setStatus("WAITING");
-        order.setCreatedAt(LocalDateTime.now());
-        order.setUpdatedAt(LocalDateTime.now());
+        // ⭐ 4. Tạo đơn hàng GẮN USER
+        NhtOrder order = orderService.createOrderFromCart(form, items, user);
 
-        List<NhtOrderItem> orderItems = items.stream()
-                .map(ci -> {
-                    NhtOrderItem oi = new NhtOrderItem();
-                    oi.setOrder(order);
-                    oi.setProduct(productService.getById(ci.getProductId()));
-                    oi.setProductName(ci.getProductName());
-                    oi.setProductPrice(ci.getPrice());
-                    oi.setQuantity(ci.getQuantity());
-                    return oi;
-                }).toList();
-
-        order.setItems(orderItems);
-
-        NhtOrder saved = orderRepository.save(order);
-
+        // ⭐ 5. Xóa giỏ
         cartService.clear(session);
 
-        return "redirect:/order/" + saved.getId();
+        return "redirect:/order/success?id=" + order.getId();
     }
 }

@@ -1,7 +1,7 @@
-package NhtK23cnt2.prj3.service;
+package NhtK23cnt2.prj3.service.product;
 
-import NhtK23cnt2.prj3.entity.NhtCategory;
-import NhtK23cnt2.prj3.repository.NhtCategoryRepository;
+import NhtK23cnt2.prj3.entity.product.NhtCategory;
+import NhtK23cnt2.prj3.repository.product.NhtCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

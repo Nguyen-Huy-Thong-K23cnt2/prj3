@@ -2,20 +2,16 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="'Danh mục: ' + ${currentCategory.categoryName}">Danh mục</title>
+    <title th:text="'Danh mục: ' + ${currentCategory.name}">Danh mục</title>
     <link rel="stylesheet" th:href="@{/css/nht-style.css}">
 </head>
 <body>
 
-<!-- HEADER -->
-<th:block th:replace="layout/NhtHeader :: nht_header"></th:block>
 
-<!-- BANNER -->
-<section class="nht-banner">
-    Banner, Quảng cáo
-</section>
+<!-- ===== HEADER (DÙNG TEMPLATE CHUNG) ===== -->
+<th:block th:replace="~{layout/NhtHeader :: nht_header}"></th:block>
 
-<!-- THANH CATEGORY DƯỚI BANNER (Trang chủ + các nhóm như trang chủ) -->
+<!-- CATEGORY NAV -->
 <section class="nht-category-bar">
     <div class="nht-category-list">
 
@@ -25,45 +21,54 @@
             Trang chủ
         </a>
 
-        <!-- Các category từ DB -->
+        <!-- Category từ DB -->
         <a th:each="c : ${categories}"
            th:href="@{'/category/' + ${c.id}}"
-           th:text="${c.categoryName}"
+           th:text="${c.name}"
            th:class="'nht-category-link' + (${activeCategoryId} == c.id ? ' nht-category-active' : '')">
         </a>
+
     </div>
 </section>
 
-<!-- BREADCRUMB nhỏ: Trang chủ / Tên danh mục -->
+<!-- BREADCRUMB CHUẨN -->
 <div class="nht-breadcrumb">
-    <a th:href="@{/}">Trang chủ</a>
+    <a href="/" class="crumb">Trang chủ</a>
     <span>/</span>
-    <span th:text="${currentCategory.categoryName}">Danh mục</span>
+    <a th:href="@{'/category/' + ${currentCategory.id}}" class="crumb"
+       th:text="${currentCategory.name}"></a>
 </div>
 
-<!-- TIÊU ĐỀ DANH MỤC -->
+<!-- TIÊU ĐỀ -->
 <section class="nht-section">
-    <h2 th:text="'Danh mục: ' + ${currentCategory.categoryName}"></h2>
+    <h2 th:text="'Danh mục: ' + ${currentCategory.name}"></h2>
 </section>
 
-<!-- LIST SẢN PHẨM TRONG DANH MỤC -->
+<!-- PRODUCT LIST -->
 <section class="nht-section">
     <div class="nht-product-grid">
+
         <div class="nht-product-card" th:each="p : ${products}">
             <a th:href="@{'/product/' + ${p.id}}">
-                <img th:src="${p.productImage}" alt="" class="nht-product-img">
-                <h4 th:text="${p.productName}"></h4>
+
+                <!-- Ảnh -->
+                <img th:src="@{|/images/${p.image}|}" alt="" class="nht-product-img">
+
+                <!-- Tên -->
+                <h4 th:text="${p.name}"></h4>
+
+                <!-- Giá -->
                 <p class="price"
-                   th:text="${#numbers.formatInteger(p.productPrice, 0, 'POINT')} + ' đ'">
-                </p>
+                   th:text="${#numbers.formatInteger(p.price, 0, 'POINT')} + ' đ'"></p>
+
             </a>
         </div>
+
     </div>
 </section>
 
-<footer class="nht-footer">
-    © 2025 - Nht Teddy Shop
-</footer>
+<th:block th:replace="layout/NhtFooter :: nht_footer"></th:block>
+
 
 </body>
 </html>

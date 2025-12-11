@@ -1,7 +1,7 @@
-package NhtK23cnt2.prj3.service;
+package NhtK23cnt2.prj3.service.product;
 
-import NhtK23cnt2.prj3.entity.NhtProduct;
-import NhtK23cnt2.prj3.repository.NhtProductRepository;
+import NhtK23cnt2.prj3.entity.product.NhtProduct;
+import NhtK23cnt2.prj3.repository.product.NhtProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +23,12 @@ public class NhtProductService {
 
     public NhtProduct getById(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+    public List<NhtProduct> searchByKeyword(String keyword) {
+        return productRepository.findByNameContainingIgnoreCase(keyword);
+    }
+
+    public List<NhtProduct> findByTag(String tag) {
+        return productRepository.findByTag(tag);
     }
 }

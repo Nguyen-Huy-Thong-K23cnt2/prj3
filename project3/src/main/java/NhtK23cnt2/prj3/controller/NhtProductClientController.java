@@ -1,6 +1,6 @@
 package NhtK23cnt2.prj3.controller;
 
-import NhtK23cnt2.prj3.service.NhtProductService;
+import NhtK23cnt2.prj3.service.product.NhtProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

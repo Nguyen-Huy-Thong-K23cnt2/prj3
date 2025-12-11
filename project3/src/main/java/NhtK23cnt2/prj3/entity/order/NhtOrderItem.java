@@ -1,32 +1,32 @@
 package NhtK23cnt2.prj3.entity.order;
 
-import NhtK23cnt2.prj3.entity.NhtProduct;
 import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "order_items")
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 public class NhtOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    NhtOrder order;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private NhtOrder order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    NhtProduct product;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
-    String productName;
-    Double productPrice;
-    Integer quantity;
+    @Column(name = "product_name", nullable = false, length = 255)
+    private String productName;
+
+    @Column(name = "product_price", nullable = false)
+    private Double productPrice;
+
+    @Column(nullable = false)
+    private Integer quantity;
 }
