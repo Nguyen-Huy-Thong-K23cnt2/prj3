@@ -2,7 +2,7 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">Danh sách sản phẩm</title>
+    <title th:text="${displayName}">Danh sách sản phẩm</title>
     <link rel="stylesheet" th:href="@{/css/nht-style.css}">
 </head>
 <body>
@@ -14,12 +14,12 @@
 <div class="nht-breadcrumb">
     <a href="/" class="crumb">Trang chủ</a>
     <span>/</span>
-    <span th:text="${title}">Danh mục</span>
+    <span th:text="${displayName}">Danh mục</span>
 </div>
 
 <!-- TIÊU ĐỀ -->
 <section class="nht-section">
-    <h2 th:text="${title}">Sản phẩm</h2>
+    <h2 th:text="${displayName}">Sản phẩm</h2>
 </section>
 
 <!-- LIST SẢN PHẨM -->
