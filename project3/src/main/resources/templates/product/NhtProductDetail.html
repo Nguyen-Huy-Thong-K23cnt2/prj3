@@ -21,7 +21,8 @@
 
     <!-- ẢNH SẢN PHẨM -->
     <div class="nht-detail-img-wrap">
-        <img class="detail-img" th:src="@{|/images/${product.image}|}">
+        <img class="detail-img"
+             th:src="@{/uploads/product-images/{img}(img=${product.image})}">
     </div>
 
     <!-- THÔNG TIN -->
@@ -79,7 +80,7 @@
     </div>
 </section>
 
-<th:block th:replace="layout/NhtFooter :: nht_footer"></th:block>
+<div th:insert="~{layout/NhtFooter :: nht_footer}"></div>
 
 </body>
 

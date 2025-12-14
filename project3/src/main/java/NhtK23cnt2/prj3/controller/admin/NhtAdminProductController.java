@@ -28,8 +28,9 @@ public class NhtAdminProductController {
     private final NhtProductRepository productRepository;
     private final NhtCategoryRepository categoryRepository;
 
-    /** Thư mục lưu ảnh (tạo cùng cấp với project khi chạy) */
-    private final String uploadDir = "uploads/product-images";
+    /** Thư mục lưu ảnh **/
+    private final String uploadDir = "D:/prj3/project3/uploads/product-images";
+
 
     /** Check user trong session có phải ADMIN không */
     private boolean isAdmin(HttpSession session) {
