@@ -22,7 +22,6 @@ CREATE TABLE product (
 
 ALTER TABLE product ADD COLUMN tag VARCHAR(50);
 
- select * from product
  
 INSERT INTO category (name) VALUES
 ('Gấu Teddy'),
@@ -92,6 +91,28 @@ VALUES
 ('Admin Test','admin@test.com','123','0900000000','ADMIN'),
 ('Shipper Test','ship@test.com','123','0911111111','SHIPPER');
 
+CREATE TABLE nht_product_comment (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    content TEXT NOT NULL,
+    star INT NOT NULL CHECK (star BETWEEN 1 AND 5),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    product_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+
+    CONSTRAINT fk_comment_product
+        FOREIGN KEY (product_id)
+        REFERENCES product(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_comment_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_unicode_ci;
 
 
 SELECT id, status FROM orders;
