@@ -47,9 +47,9 @@
             <div th:if="${session.currentUser != null}" class="logged-wrap">
                 <span class="user-name" th:text="'Xin chào, ' + ${session.currentUser.fullName}">Xin chào</span>
 
-                <a th:if="${session.currentUser.role.name() == 'ADMIN'}"
+               <button>  <a th:if="${session.currentUser.role.name() == 'ADMIN'}"
                    th:href="@{/admin/dashboard}" class="btn-link">Quản trị</a>
-
+               </button>
                 <a th:if="${session.currentUser.role.name() == 'SHIPPER'}"
                    th:href="@{/ship/orders}" class="btn-link">Đơn giao</a>
 
