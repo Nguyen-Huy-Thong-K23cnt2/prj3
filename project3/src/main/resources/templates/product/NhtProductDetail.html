@@ -52,30 +52,60 @@
     </div>
 </section>
 
-
-<!-- EXTRA INFO -->
+<!-- ========== COMMENT / REVIEW ========== -->
 <section class="nht-detail-extra">
-
-    <div class="nht-product-extra">
-        <h3>Thông tin sản phẩm</h3>
-        <p th:text="${product.description}"></p>
-    </div>
 
     <div class="nht-review-section">
         <h3>Đánh giá khách hàng</h3>
 
-        <div class="nht-review-card">
-            <div class="nht-review-header">
-                <span>Hà Linh</span>
-                <span class="nht-review-stars">★★★★★</span>
-            </div>
-            <p>Gấu xinh, giao hàng nhanh.</p>
-        </div>
+        <!-- FORM GỬI COMMENT (CHỈ HIỆN KHI ĐÃ ĐĂNG NHẬP) -->
+        <form class="review-form"
+              th:if="${currentUser != null}"
+              th:action="@{'/product/' + ${product.id} + '/comment'}"
+              method="post">
 
-        <form class="review-form">
-            <textarea placeholder="Viết đánh giá..."></textarea>
+            <label>Đánh giá của bạn</label>
+
+            <select name="star" required>
+                <option value="5">★★★★★ - Rất tốt</option>
+                <option value="4">★★★★☆ - Tốt</option>
+                <option value="3">★★★☆☆ - Bình thường</option>
+                <option value="2">★★☆☆☆ - Kém</option>
+                <option value="1">★☆☆☆☆ - Rất tệ</option>
+            </select>
+
+            <textarea name="content"
+                      placeholder="Viết đánh giá của bạn..."
+                      required></textarea>
+
             <button type="submit">Gửi đánh giá</button>
         </form>
+
+        <!-- NẾU CHƯA ĐĂNG NHẬP -->
+        <p th:if="${currentUser == null}" style="font-size:14px;">
+            Vui lòng <a th:href="@{/login}">đăng nhập</a> để đánh giá sản phẩm.
+        </p>
+
+        <!-- DANH SÁCH COMMENT -->
+        <div class="nht-review-card"
+             th:each="c : ${comments}">
+
+            <div class="nht-review-header">
+                <span th:text="${c.user.fullName}"></span>
+                <span class="nht-review-stars"
+                      th:text="${'★'.repeat(c.star)}"></span>
+            </div>
+
+            <p th:text="${c.content}"></p>
+
+            <small th:text="${#temporals.format(c.createdAt,'dd/MM/yyyy HH:mm')}"></small>
+        </div>
+
+        <!-- NẾU CHƯA CÓ COMMENT -->
+        <p th:if="${#lists.isEmpty(comments)}"
+           style="font-size:14px; color:#9ca3af;">
+            Chưa có đánh giá nào cho sản phẩm này.
+        </p>
 
     </div>
 </section>
@@ -83,5 +113,4 @@
 <div th:insert="~{layout/NhtFooter :: nht_footer}"></div>
 
 </body>
-
 </html>
