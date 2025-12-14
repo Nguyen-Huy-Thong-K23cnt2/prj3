@@ -30,7 +30,7 @@
              th:each="p : ${products}">
             <a th:href="@{'/product/' + ${p.id}}">
 
-                <img th:src="@{|/images/${p.image}|}"
+                <img th:src="@{'/uploads/product-images/' + ${p.image}}"
                      class="nht-product-img"
                      alt="Ảnh sản phẩm">
 
