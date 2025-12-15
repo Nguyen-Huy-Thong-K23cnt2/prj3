@@ -1046,3 +1046,144 @@ body.product-detail-page .nht-banner {
     background: #ff0f79;
 }
 
+/* =====================================================
+   TRANG DỊCH VỤ (SERVICE PAGES)
+===================================================== */
+
+/* Wrapper chung */
+.nht-service-page {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* Tiêu đề trang */
+.nht-service-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff5ea8;
+    margin-bottom: 10px;
+}
+
+.nht-service-subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Grid dịch vụ */
+.nht-service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* Card dịch vụ */
+.nht-service-card {
+    background: #fff;
+    border: 1px solid #ffecf5;
+    border-radius: 16px;
+    padding: 22px 20px;
+    text-align: center;
+    transition: 0.25s;
+    box-shadow: 0 3px 10px rgba(255, 140, 190, 0.15);
+}
+
+.nht-service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 22px rgba(255, 120, 170, 0.25);
+    border-color: #ff8cbc;
+}
+
+/* Icon */
+.nht-service-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+/* Tên dịch vụ */
+.nht-service-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c44382;
+    margin-bottom: 8px;
+}
+
+/* Mô tả */
+.nht-service-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+/* Danh sách chi tiết */
+.nht-service-list {
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.nht-service-list li {
+    margin-bottom: 6px;
+    color: #666;
+}
+
+/* Nút chọn dịch vụ */
+.nht-service-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #ff8cbc;
+    color: #fff;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nht-service-btn:hover {
+    background: #ff6aa2;
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   TRANG CHI TIẾT 1 DỊCH VỤ
+===================================================== */
+
+.nht-service-detail {
+    background: #ffe9f2;
+    padding: 30px;
+    border-radius: 18px;
+    margin-top: 30px;
+}
+
+.nht-service-detail h3 {
+    color: #ff5ea8;
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.nht-service-detail p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Nút quay lại */
+.nht-back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid #ff8cbc;
+    color: #ff5ea8;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nht-back-btn:hover {
+    background: #ff8cbc;
+    color: #fff;
+}
+

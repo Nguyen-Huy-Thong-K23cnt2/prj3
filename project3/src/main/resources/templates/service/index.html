@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dịch vụ của Nht Teddy Shop</title>
+    <link rel="stylesheet" th:href="@{/css/nht-style.css}">
+</head>
+<body>
+
+<th:block th:replace="layout/NhtHeader :: nht_header"></th:block>
+
+<section class="nht-service-list">
+    <h2>Dịch vụ của chúng tôi</h2>
+
+    <div class="nht-service-grid">
+
+        <a href="/service/gift" class="nht-service-card">
+            🎁
+            <h4>Gói quà & Thiệp viết tay</h4>
+            <p>Gói quà miễn phí – in tên theo yêu cầu</p>
+        </a>
+
+        <a href="/service/delivery" class="nht-service-card">
+            🚚
+            <h4>Giao hàng nhanh</h4>
+            <p>Giao trong ngày – giấu tên</p>
+        </a>
+
+        <a href="/service/clean" class="nht-service-card">
+            🧼
+            <h4>Vệ sinh gấu bông</h4>
+            <p>Làm sạch – khử khuẩn</p>
+        </a>
+
+        <a href="/service/combo" class="nht-service-card">
+            🎁
+            <h4>Combo quà tặng</h4>
+            <p>Tiết kiệm – tiện lợi</p>
+        </a>
+
+        <a href="/service/business" class="nht-service-card">
+            🏢
+            <h4>Quà doanh nghiệp</h4>
+            <p>In logo – số lượng lớn</p>
+        </a>
+
+        <a href="/service/advice" class="nht-service-card">
+            💖
+            <h4>Tư vấn chọn quà</h4>
+            <p>Phù hợp mọi dịp</p>
+        </a>
+
+    </div>
+</section>
+
+<th:block th:replace="layout/NhtFooter :: nht_footer"></th:block>
+
+</body>
+</html>

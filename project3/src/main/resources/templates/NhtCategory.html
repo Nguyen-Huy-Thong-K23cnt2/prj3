@@ -52,7 +52,7 @@
             <a th:href="@{'/product/' + ${p.id}}">
 
                 <!-- Ảnh -->
-                <img th:src="@{|/images/${p.image}|}" alt="" class="nht-product-img">
+                <img th:src="@{'/uploads/product-images/' + ${p.image}}" alt="" class="nht-product-img">
 
                 <!-- Tên -->
                 <h4 th:text="${p.name}"></h4>
@@ -68,7 +68,6 @@
 </section>
 
 <th:block th:replace="layout/NhtFooter :: nht_footer"></th:block>
-
 
 </body>
 </html>
