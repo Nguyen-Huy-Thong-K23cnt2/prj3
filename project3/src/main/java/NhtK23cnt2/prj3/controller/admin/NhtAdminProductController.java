@@ -28,17 +28,13 @@ public class NhtAdminProductController {
     private final NhtProductRepository productRepository;
     private final NhtCategoryRepository categoryRepository;
 
-    /** Thư mục lưu ảnh **/
     private final String uploadDir = "D:/prj3/project3/uploads/product-images";
 
 
-    /** Check user trong session có phải ADMIN không */
     private boolean isAdmin(HttpSession session) {
         NhtUser currentUser = (NhtUser) session.getAttribute("currentUser");
         return currentUser != null && currentUser.getRole() == NhtUserRole.ADMIN;
     }
-
-    /* ========== DANH SÁCH SẢN PHẨM ========== */
 
     @GetMapping
     public String listProducts(HttpSession session, Model model) {
@@ -51,7 +47,6 @@ public class NhtAdminProductController {
         return "admin/NhtProductList";   // view list sản phẩm
     }
 
-    /* ========== FORM THÊM MỚI ========== */
 
     @GetMapping("/create")
     public String showCreateForm(HttpSession session, Model model) {
@@ -78,7 +73,6 @@ public class NhtAdminProductController {
             return "redirect:/login";
         }
 
-        // xử lý upload ảnh
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 String fileName = saveImage(imageFile);
@@ -95,7 +89,6 @@ public class NhtAdminProductController {
         return "redirect:/admin/products?created";
     }
 
-    /* ========== FORM SỬA ========== */
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id,
@@ -152,7 +145,6 @@ public class NhtAdminProductController {
         return "redirect:/admin/products?updated";
     }
 
-    /* ========== XOÁ ========== */
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id,
@@ -164,8 +156,6 @@ public class NhtAdminProductController {
         productRepository.deleteById(id);
         return "redirect:/admin/products?deleted";
     }
-
-    /* ========== HÀM LƯU ẢNH ========== */
 
     private String saveImage(MultipartFile imageFile) throws IOException {
         String originalName = StringUtils.cleanPath(imageFile.getOriginalFilename());

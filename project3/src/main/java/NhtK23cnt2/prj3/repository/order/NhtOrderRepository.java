@@ -8,10 +8,8 @@ import java.util.Optional;
 
 public interface NhtOrderRepository extends JpaRepository<NhtOrder, Long> {
 
-    // Tìm 1 đơn hàng khớp ID + SĐT
     Optional<NhtOrder> findByIdAndPhone(Long id, String phone);
 
-    // Tìm tất cả đơn theo số điện thoại
     List<NhtOrder> findByPhone(String phone);
 
     List<NhtOrder> findByUser_IdOrderByCreatedAtDesc(Long userId);

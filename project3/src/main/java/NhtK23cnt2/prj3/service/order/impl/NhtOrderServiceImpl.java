@@ -30,7 +30,6 @@ public class NhtOrderServiceImpl implements NhtOrderService {
         order.setAddress(form.getAddress());
         order.setNote(form.getNote());
 
-        // ⭐ Gắn USER
         order.setUser(user);
 
         order.setStatus(NhtOrderStatus.WAIT_CONFIRM);

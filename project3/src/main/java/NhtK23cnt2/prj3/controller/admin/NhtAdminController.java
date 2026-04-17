@@ -30,7 +30,6 @@ public class NhtAdminController {
         return user != null && user.getRole() == NhtUserRole.ADMIN;
     }
 
-    /* ==== LABEL TRẠNG THÁI ĐƠN ==== */
     private Map<String, String> buildStatusLabels() {
         Map<String, String> map = new LinkedHashMap<>();
         map.put(NhtOrderStatus.WAIT_CONFIRM.name(), "Chờ xác nhận");
@@ -49,7 +48,6 @@ public class NhtAdminController {
         return "redirect:/admin/customers";
     }
 
-    /* ========== DASHBOARD ========== */
     @GetMapping("/dashboard")
     public String adminHome(HttpSession session, Model model) {
         NhtUser currentUser = (NhtUser) session.getAttribute("currentUser");
@@ -59,8 +57,6 @@ public class NhtAdminController {
         model.addAttribute("adminName", currentUser.getFullName());
         return "admin/NhtAdminDashboard";
     }
-
-    /* ========== QUẢN LÝ ĐƠN HÀNG ========== */
 
     @GetMapping("/orders")
     public String adminOrders(HttpSession session, Model model) {
@@ -123,7 +119,6 @@ public class NhtAdminController {
         return "redirect:/admin/orders?deleted";
     }
 
-    /* ========== QUẢN LÝ ADMIN (ROLE = ADMIN) ========== */
 
     @GetMapping("/admin-users")
     public String listAdminUsers(HttpSession session, Model model) {
@@ -137,7 +132,6 @@ public class NhtAdminController {
         return "admin/NhtAdminUserList";
     }
 
-    /* ========== QUẢN LÝ KHÁCH HÀNG (ROLE = CUSTOMER) ========== */
 
     @GetMapping("/customers")
     public String listCustomers(HttpSession session, Model model) {
@@ -150,8 +144,6 @@ public class NhtAdminController {
         model.addAttribute("customers", customers);
         return "admin/NhtCustomerList";
     }
-
-    /* ========== FORM THÊM USER (ADMIN / CUSTOMER) ========== */
 
     @GetMapping("/users/create")
     public String showCreateUserForm(@RequestParam("role") NhtUserRole role,
@@ -202,7 +194,7 @@ public class NhtAdminController {
         NhtUser user = new NhtUser();
         user.setFullName(fullName);
         user.setEmail(email);
-        user.setPassword(password);   // demo: chưa mã hóa
+        user.setPassword(password);
         user.setPhone(phone);
         user.setRole(role);
 
@@ -211,7 +203,6 @@ public class NhtAdminController {
         return redirectByRole(role);
     }
 
-    /* ========== SỬA USER ========== */
 
     @GetMapping("/users/edit/{id}")
     public String showEditUserForm(@PathVariable Long id,
@@ -276,7 +267,6 @@ public class NhtAdminController {
         return redirectByRole(user.getRole());
     }
 
-    /* ========== XOÁ USER ========== */
 
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable Long id,

@@ -28,5 +28,5 @@ public class NhtUser {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private NhtUserRole role;  // CLIENT / ADMIN / SHIPPER
+    private NhtUserRole role;
 }

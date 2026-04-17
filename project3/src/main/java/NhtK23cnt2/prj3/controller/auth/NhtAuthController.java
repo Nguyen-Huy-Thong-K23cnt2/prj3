@@ -18,8 +18,6 @@ public class NhtAuthController {
     private final NhtUserService userService;
 
     // ========== LOGIN ==========
-
-    // Hiển thị form login (GET /login)
     @GetMapping("/login")
     public String showLoginForm(@RequestParam(value = "redirect", required = false) String redirect,
                                 Model model) {
@@ -27,7 +25,6 @@ public class NhtAuthController {
         return "auth/NhtLogin";
     }
 
-    // Xử lý submit form login (POST /login)
     @PostMapping("/login")
     public String doLogin(@RequestParam String email,
                           @RequestParam String password,
@@ -45,29 +42,25 @@ public class NhtAuthController {
             return "auth/NhtLogin";
         }
 
-        // Save session
         session.setAttribute("currentUser", user);
 
-        // Nếu có redirect → quay lại trang ban đầu
         if (redirect != null && !redirect.isEmpty()) {
             return "redirect:" + redirect;
         }
 
-        // Điều hướng theo role (nếu không có redirect)
         if (user.getRole() == NhtUserRole.ADMIN) {
             return "redirect:/admin/dashboard";
-        } else if (user.getRole() == NhtUserRole.SHIPPER) {
-            return "redirect:/ship/orders";
-        } else {
+        }
+        else {
             return "redirect:/";
         }
     }
 
-    // ========== REGISTER (CHO KHÁCH) ==========
+    // ========== REGISTER ==========
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        return "auth/NhtRegister";   // file auth/NhtRegister.html
+        return "auth/NhtRegister";
     }
 
     @PostMapping("/register")

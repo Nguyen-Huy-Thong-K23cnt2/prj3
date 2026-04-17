@@ -15,7 +15,6 @@ public class NhtUserServiceImpl implements NhtUserService {
 
     @Override
     public NhtUser registerCustomer(String fullName, String email, String password, String phone) {
-        // check trùng email
         if (userRepository.findByEmail(email).isPresent()) {
             return null;
         }
@@ -23,7 +22,7 @@ public class NhtUserServiceImpl implements NhtUserService {
         NhtUser u = new NhtUser();
         u.setFullName(fullName);
         u.setEmail(email);
-        u.setPassword(password);  // thực tế nên mã hoá
+        u.setPassword(password);
         u.setPhone(phone);
         u.setRole(NhtUserRole.CUSTOMER);
         return userRepository.save(u);

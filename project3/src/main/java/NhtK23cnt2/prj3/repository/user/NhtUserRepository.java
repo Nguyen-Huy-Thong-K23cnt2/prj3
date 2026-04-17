@@ -11,10 +11,8 @@ import java.util.Optional;
 @Repository
 public interface NhtUserRepository extends JpaRepository<NhtUser, Long> {
 
-    // Lọc user theo role
     List<NhtUser> findByRole(NhtUserRole role);
 
-    // Dùng cho login
     Optional<NhtUser> findByEmail(String email);
 
     Optional<NhtUser> findByEmailAndPassword(String email, String password);

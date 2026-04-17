@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class NhtHomeController {
+public class    NhtHomeController {
 
     private final NhtCategoryService categoryService;
     private final NhtProductService productService;

@@ -21,7 +21,6 @@ public class NhtProductClientController {
     private final NhtProductService productService;
     private final NhtProductCommentRepository commentRepository;
 
-    /* ========== CHI TIẾT SẢN PHẨM + COMMENT ========== */
     @GetMapping("/product/{id}")
     public String getDetail(@PathVariable Long id,
                             Model model,
@@ -32,10 +31,7 @@ public class NhtProductClientController {
             return "redirect:/";
         }
 
-        // user đăng nhập
         NhtUser currentUser = (NhtUser) session.getAttribute("currentUser");
-
-        // danh sách comment
         List<NhtProductComment> comments =
                 commentRepository.findByProductIdOrderByCreatedAtDesc(id);
 
@@ -46,7 +42,6 @@ public class NhtProductClientController {
         return "product/NhtProductDetail";
     }
 
-    /* ========== GỬI BÌNH LUẬN + SAO ========== */
     @PostMapping("/product/{id}/comment")
     public String postComment(@PathVariable Long id,
                               @RequestParam("content") String content,
@@ -76,7 +71,6 @@ public class NhtProductClientController {
         return "redirect:/product/" + id;
     }
 
-    /* ========== TAG ========== */
     @GetMapping("/tag/{tag}")
     public String getByTag(@PathVariable String tag, Model model) {
 

@@ -21,7 +21,7 @@ public class NhtProductComment {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private int star; // 1–5
+    private int star;
 
     private LocalDateTime createdAt;
 

@@ -14,12 +14,11 @@ public class NhtProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;          // đã ALTER thành BIGINT
+    private Long id;
 
     @Column(nullable = false, length = 255)
     private String name;
 
-    // chỉ lưu tên file ảnh
     @Column(length = 500)
     private String image;
 
